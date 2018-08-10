@@ -1,0 +1,55 @@
+version: '2'
+
+services:
+
+  # Data API and authentication/authorization
+  node-test:
+    image: node-test
+    build:
+      context: ./
+      args:
+        NODE_ENV: test
+    hostname: localhost
+    depends_on:
+      - db
+    environment:
+      - CORS_ORIGIN=*
+      - DATABASE_URL=mongodb://root:example@db:8081
+      - DATABASE_DEBUG=false
+    ports:
+      - "8080:8080" #
+      - "9229:9229" # Debug
+      - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
+    volumes:
+      - ./public:/usr/src/app/public
+      - ./src:/usr/src/app/src
+      - ./.gitignore:/usr/src/app/.gitignore
+      - ./package.json:/usr/src/app/package.json
+    command: npm run debug #node tools/run.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
+
+  # SQL and document data store
+  db:
+    image: mongo
+    restart: always
+    environment:
+        MONGO_INITDB_DATABASE: db
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+        - 8081:8081
+    depends_on:
+        - db
+    environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: root
+        ME_CONFIG_MONGODB_ADMINPASSWORD: example
+        ME_CONFIG_MONGODB_AUTH_DATABASE: db
+        ME_CONFIG_MONGODB_AUTH_USERNAME: root
+        ME_CONFIG_MONGODB_AUTH_PASSWORD: example
+        ME_CONFIG_MONGODB_PORT: 27017
+        ME_CONFIG_MONGODB_SERVER: db
+volumes:
+  db:

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MY APP</title>
+</head>
+<body>
+  {{id.id}}
+  <form action="/update2" method="POST">
+  <input type="hidden" placeholder="id" name="id" value="{{id.id}}">
+  <input type="text" placeholder="datain" name="datain">
+  <input type="text" placeholder="datali" name="datali">
+  <input type="text" placeholder="title" name="title">
+  <input type="text" placeholder="desc" name="desc">
+  <input type="text" placeholder="prior" name="prior">
+  <button type="submit">Submit</button>
+</form>
+<!--
+<div>
+  <h2>retira a frase do lalau e mete uma do verdadeiro</h2>
+  <button id="update"> confia! </button>
+</div>
+-->
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MY APP</title>
+</head>
+<body>
+  <table>
+  {{#each quotes}}
+    <tr>
+    <td>
+        <form action="/update" method="POST">
+            <input type="hidden" placeholder="id" name="id" value="{{_id}}">
+            <button type="submit">Atualizar</button>
+        </form>
+
+    </td>
+    <td><p>{{datain}}</p></td>
+    <td><p>{{datali}}</p></td>
+    <td><p>{{title}}</p></td>
+    <td><p>{{desc}}</p></td>
+    <td><p>{{prior}}</p></td>
+    <tr>
+  {{/each}}
+</table>
+  <form action="/todo" method="POST">
+  <input type="text" placeholder="datain" name="datain">
+  <input type="text" placeholder="datali" name="datali">
+  <input type="text" placeholder="title" name="title">
+  <input type="text" placeholder="desc" name="desc">
+  <input type="text" placeholder="prior" name="prior">
+  <button type="submit">Submit</button>
+</form>
+<!--
+<div>
+  <h2>retira a frase do lalau e mete uma do verdadeiro</h2>
+  <button id="update"> confia! </button>
+</div>
+-->
+
+
+<div>
+  <h2>deleta a ultima tarefa inserida.</h2>
+  <button id="delete"> deletar!</button>
+</div>
+
+<!-- ... -->
+<script src="main.js"></script>
+</body>
+</html>
